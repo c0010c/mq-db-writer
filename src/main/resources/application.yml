@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: mq-db-writer
+
+cdc-sync:
+  app-name: debezium-cdc-sync
+  rocketmq:
+    name-server: 127.0.0.1:9876
+    acl-enabled: true
+    access-key: demo-ak
+    secret-key: demo-sk
+  datasources:
+    syncAdminDb:
+      url: jdbc:mysql://mysql-admin:3306/cdc_admin
+      username: sync_admin
+      password: secret
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  topics:
+    - topic: user_cdc_topic
+      datasource: syncDbA
+      target-table: user_info
+      primary-key: id
